@@ -1,10 +1,18 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Award, ExternalLink } from "lucide-react";
+import { Award, ExternalLink, ChevronDown } from "lucide-react";
 import { certifications } from "@/data/certifications";
 
+// Show this many first; the rest sit behind a "Show all" button.
+const INITIAL_VISIBLE = 6;
+
 export function CertificationsSection() {
+  const [showAll, setShowAll] = useState(false);
+  const hasMore = certifications.length > INITIAL_VISIBLE;
+  const visible = showAll ? certifications : certifications.slice(0, INITIAL_VISIBLE);
+
   return (
     <section id="certifications" className="py-20 bg-paper">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,8 +33,9 @@ export function CertificationsSection() {
         </motion.div>
 
         {certifications.length > 0 ? (
+          <>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {certifications.map((c, i) => (
+            {visible.map((c, i) => (
               <motion.div
                 key={c.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -57,6 +66,24 @@ export function CertificationsSection() {
               </motion.div>
             ))}
           </div>
+
+          {hasMore && (
+            <div className="mt-8 text-center">
+              <button
+                type="button"
+                onClick={() => setShowAll((s) => !s)}
+                aria-expanded={showAll}
+                className="inline-flex items-center gap-2 rounded-full border border-line bg-paper-raised px-5 py-2.5 text-sm font-semibold text-ink hover:border-signal hover:text-signal transition-colors"
+              >
+                {showAll ? "Show fewer" : `Show all ${certifications.length} certifications`}
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform ${showAll ? "rotate-180" : ""}`}
+                  aria-hidden="true"
+                />
+              </button>
+            </div>
+          )}
+          </>
         ) : (
           <motion.div
             initial={{ opacity: 0, y: 20 }}

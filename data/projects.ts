@@ -81,7 +81,7 @@ export const otherProjects: SimpleProject[] = [
      description: "One or two sentences about what it does.",
      techStack: ["Python", "Django", "HTML", "CSS", "JavaScript", "MySQL"],
      thumbnail: "/fcuue/ss2.png",
-     githubUrl: "",
+     githubUrl: "https://github.com/maechieee/fcuue",
   },
   {
       id: "scits",
@@ -89,7 +89,7 @@ export const otherProjects: SimpleProject[] = [
      description: "One or two sentences about what it does.",
      techStack: ["Python", "Django", "HTML", "CSS", "JavaScript", "MySQL"],
      thumbnail: "/scits/ss1.png",
-     githubUrl: "https://github.com/maechieee/my-project",
+     githubUrl: "https://github.com/maechieee/scits",
   },
   {
       id: "onlineyearbook",
@@ -97,7 +97,7 @@ export const otherProjects: SimpleProject[] = [
      description: "One or two sentences about what it does.",
      techStack: ["HTML", "CSS", "JavaScript", "MySQL"],
      thumbnail: "/onlineyearbook/ss2.png",
-     githubUrl: "https://github.com/maechieee/my-project",
+     githubUrl: "https://github.com/maechieee/fcu-online-yearbook",
   },
 ];
 
