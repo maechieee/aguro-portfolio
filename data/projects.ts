@@ -78,7 +78,7 @@ export const otherProjects: SimpleProject[] = [
   {
     id: "fcuue",
      title: "Unishop",
-     description: "One or two sentences about what it does.",
+     description: "An e-commerce website for university uniforms, where students can browse and order school uniforms online.",
      techStack: ["Python", "Django", "HTML", "CSS", "JavaScript", "MySQL"],
      thumbnail: "/fcuue/ss2.png",
      githubUrl: "https://github.com/maechieee/fcuue",
@@ -86,7 +86,7 @@ export const otherProjects: SimpleProject[] = [
   {
       id: "scits",
      title: "Student Concern & Intervention System",
-     description: "One or two sentences about what it does.",
+     description: "A student guidance and counseling website that manages student records, including cases such as bullying and other concerns.",
      techStack: ["Python", "Django", "HTML", "CSS", "JavaScript", "MySQL"],
      thumbnail: "/scits/ss1.png",
      githubUrl: "https://github.com/maechieee/scits",
@@ -94,8 +94,8 @@ export const otherProjects: SimpleProject[] = [
   {
       id: "onlineyearbook",
      title: "Online Yearbook",
-     description: "One or two sentences about what it does.",
-     techStack: ["HTML", "CSS", "JavaScript", "MySQL"],
+     description: "A web-based digital yearbook for the school, replacing the printed version with an online one.",
+     techStack: ["HTML", "CSS", "JavaScript", "MySQL", "BootStrap 5"],
      thumbnail: "/onlineyearbook/ss2.png",
      githubUrl: "https://github.com/maechieee/fcu-online-yearbook",
   },
