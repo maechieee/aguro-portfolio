@@ -48,6 +48,59 @@ export interface Project {
   };
 }
 
+/**
+ * Simple project: a compact card with no case study / popup.
+ * Add entries to `otherProjects` below. The "More projects" section on the
+ * site only appears once this list has at least one entry.
+ * Only use real details (stack, description, links) — never invent them.
+ */
+export interface SimpleProject {
+  id: string;
+  title: string;
+  description: string;
+  techStack: string[];
+  /** Path under /public, e.g. "/my-project/thumbnail.png". Optional. */
+  thumbnail?: string;
+  githubUrl?: string;
+  liveUrl?: string;
+}
+
+export const otherProjects: SimpleProject[] = [
+  // Example (copy, fill in with real details, and remove the comment):
+  // {
+  //   id: "my-project",
+  //   title: "My Project",
+  //   description: "One or two sentences about what it does.",
+  //   techStack: ["React", "Node.js"],
+  //   thumbnail: "/my-project/thumbnail.png",
+  //   githubUrl: "https://github.com/maechieee/my-project",
+  // },
+  {
+    id: "fcuue",
+     title: "Unishop",
+     description: "One or two sentences about what it does.",
+     techStack: ["Python", "Django", "HTML", "CSS", "JavaScript", "MySQL"],
+     thumbnail: "/fcuue/ss2.png",
+     githubUrl: "",
+  },
+  {
+      id: "scits",
+     title: "Student Concern & Intervention System",
+     description: "One or two sentences about what it does.",
+     techStack: ["Python", "Django", "HTML", "CSS", "JavaScript", "MySQL"],
+     thumbnail: "/scits/ss1.png",
+     githubUrl: "https://github.com/maechieee/my-project",
+  },
+  {
+      id: "onlineyearbook",
+     title: "Online Yearbook",
+     description: "One or two sentences about what it does.",
+     techStack: ["HTML", "CSS", "JavaScript", "MySQL"],
+     thumbnail: "/onlineyearbook/ss2.png",
+     githubUrl: "https://github.com/maechieee/my-project",
+  },
+];
+
 export const projects: Project[] = [
   // =========================================================
   // PROJECT 01: FACILITYHUB

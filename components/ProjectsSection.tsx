@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ProjectCard } from "./ProjectCard";
 import { ProjectModal } from "./ProjectModal";
-import { Project } from "@/data/projects";
+import { SimpleProjectCard } from "./SimpleProjectCard";
+import { Project, otherProjects } from "@/data/projects";
 import { projectService } from "@/services/projectService";
 
 export function ProjectsSection() {
@@ -72,6 +73,23 @@ export function ProjectsSection() {
                   onClick={() => openProjectModal(project)}
                 />
               ))}
+            </div>
+          )}
+
+          {/* More projects: compact cards, no case study. Hidden while the list is empty. */}
+          {otherProjects.length > 0 && (
+            <div className="mt-20">
+              <div className="mb-8">
+                <p className="font-mono text-xs text-slate uppercase tracking-widest mb-3">Other work</p>
+                <h3 className="font-display text-2xl md:text-3xl font-bold text-ink tracking-tight">
+                  More Projects
+                </h3>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {otherProjects.map((project, index) => (
+                  <SimpleProjectCard key={project.id} project={project} index={index} />
+                ))}
+              </div>
             </div>
           )}
         </div>

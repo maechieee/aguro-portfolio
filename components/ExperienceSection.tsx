@@ -2,11 +2,19 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Briefcase, MapPin, Calendar, GraduationCap, Sparkles } from "lucide-react";
+import { Briefcase, MapPin, Calendar, GraduationCap, Sparkles, Globe, Database, Server, Puzzle } from "lucide-react";
 import { profile } from "@/data/profile";
 import { experiences, education } from "@/data/experience";
 
 type Tab = "education" | "experience";
+
+// Icon per interest; anything not listed falls back to Sparkles.
+const interestIcons: Record<string, typeof Sparkles> = {
+  "Web development": Globe,
+  "Database management": Database,
+  "System development": Server,
+  "Problem-solving": Puzzle,
+};
 
 const tabs: { id: Tab; label: string; icon: typeof Briefcase }[] = [
   { id: "education", label: "Education", icon: GraduationCap },
@@ -48,17 +56,20 @@ export function ExperienceSection() {
                 Interests
               </p>
               <div className="flex flex-wrap gap-2">
-                {education.interests.map((i) => (
+                {education.interests.map((i) => {
+                  const Icon = interestIcons[i] ?? Sparkles;
+                  return (
                   <motion.span
                     key={i}
                     whileHover={{ y: -3, scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
                     className="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper-raised px-3.5 py-2 text-sm font-semibold text-ink cursor-default hover:border-signal transition-colors"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-signal" aria-hidden="true" />
+                    <Icon className="w-3.5 h-3.5 text-signal" aria-hidden="true" />
                     {i}
                   </motion.span>
-                ))}
+                  );
+                })}
               </div>
               <p className="flex items-center gap-2 text-sm text-slate pt-2">
                 <MapPin className="w-4 h-4 text-signal" aria-hidden="true" />

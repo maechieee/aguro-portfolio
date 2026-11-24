@@ -60,8 +60,8 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
       <div className="bg-paper-raised text-ink flex flex-col">
         {/* Header */}
         <div className="p-4 sm:p-6 md:p-8 border-b border-line">
-          <div className="flex flex-col sm:flex-row justify-between items-start gap-4 sm:gap-6">
-            <div className="flex-1 w-full">
+          <div className="flex flex-col gap-4 sm:gap-5">
+            <div className="w-full pr-8 sm:pr-10">
               <span className="inline-block font-mono text-[11px] uppercase tracking-widest text-slate mb-2">
                 Academic project case study
               </span>
@@ -76,7 +76,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-slate text-sm sm:text-base md:text-lg leading-relaxed"
+                className="text-slate text-sm sm:text-base md:text-lg leading-relaxed max-w-none"
               >
                 {project.fullDescription ?? project.shortDescription}
               </motion.p>
@@ -87,7 +87,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
-              className="flex flex-row flex-wrap sm:flex-col lg:flex-row gap-2 sm:gap-3 w-full sm:w-auto"
+              className="flex flex-row flex-wrap gap-2 sm:gap-3 w-full"
             >
               {project.githubUrl ? (
                 <Button href={project.githubUrl} className="gap-2 text-sm flex-1 sm:flex-initial px-3 py-2">
@@ -117,13 +117,13 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
 
         {/* Content */}
         <div className="flex-1 p-4 sm:p-6 md:p-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-            {/* Left - Screenshots */}
+          <div className="space-y-8 sm:space-y-10">
+            {/* Top - Screenshots + tech stack, full width */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="space-y-4 sm:space-y-6 lg:self-start"
+              className="space-y-4 sm:space-y-6 max-w-4xl mx-auto w-full"
             >
               <h3 className="text-lg sm:text-xl md:text-2xl font-bold">Project Screenshots</h3>
 
@@ -219,13 +219,14 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
               </div>
             </motion.div>
 
-            {/* Right - Case study */}
+            {/* Case study - two balanced columns on large screens */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="space-y-8"
+              className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 border-t border-line pt-8 sm:pt-10"
             >
+              <div className="space-y-8">
               <CaseStudyBlock letter="A" title="The Problem">
                 {cs.problem ? (
                   <p className="text-slate leading-relaxed text-sm sm:text-base">{cs.problem}</p>
@@ -243,6 +244,9 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                 <Field label="Why these technologies" value={arch.justification} />
               </CaseStudyBlock>
 
+              </div>
+
+              <div className="space-y-8">
               <CaseStudyBlock letter="C" title="My Individual Contributions">
                 {cs.contributions.length > 0 ? (
                   <ul className="space-y-2 text-slate text-sm sm:text-base">
@@ -272,6 +276,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                   <Pending>Testing results to be provided</Pending>
                 )}
               </CaseStudyBlock>
+              </div>
             </motion.div>
           </div>
         </div>
