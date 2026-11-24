@@ -11,7 +11,6 @@ import { profile, emailComposeUrl } from "@/data/profile";
 const readouts = [
   { value: "BSIT", label: "Student" },
   { value: "2", label: "Academic project case studies" },
-  { value: "2023–24", label: "Work immersion, PDRRMO" },
 ];
 
 interface HeroSectionProps {
