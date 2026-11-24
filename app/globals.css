@@ -1,0 +1,261 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Prevent flash of unstyled content */
+:root {
+  color-scheme: light dark;
+}
+
+/*
+  Design system: "systems status" — a precision, engineering-status aesthetic.
+  Paper/ink neutrals carry the page; signal (blue) is the interactive accent;
+  live (green) is reserved for literal status signals (available now, production/live).
+*/
+:root {
+  --paper: #fafaf8;
+  --paper-raised: #ffffff;
+  --ink: #14161a;
+  --slate: #6b7078;
+  --line: #e5e4e1;
+  --signal: #3454d1;
+  --signal-dim: #eef1fc;
+  --live: #159957;
+  --live-dim: #e7f6ee;
+}
+
+.dark {
+  --paper: #0b0c0e;
+  --paper-raised: #131417;
+  --ink: #f5f5f3;
+  --slate: #9ba0a8;
+  --line: #26282c;
+  --signal: #7f96ff;
+  --signal-dim: #1b2340;
+  --live: #34d399;
+  --live-dim: #0f2a20;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-ink: var(--ink);
+  --color-slate: var(--slate);
+  --color-line: var(--line);
+  --color-signal: var(--signal);
+  --color-signal-dim: var(--signal-dim);
+  --color-live: var(--live);
+  --color-live-dim: var(--live-dim);
+
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-sans);
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Line clamp utility */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Animation for smooth transitions */
+* {
+  transition-property: color, background-color, border-color;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Blog post body — hand-styled to match the design tokens instead of a generic prose plugin */
+.blog-prose {
+  color: var(--ink);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.blog-prose > * + * {
+  margin-top: 1.25em;
+}
+
+.blog-prose h1,
+.blog-prose h2,
+.blog-prose h3,
+.blog-prose h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+.blog-prose h1 { font-size: 1.875rem; }
+.blog-prose h2 { font-size: 1.5rem; }
+.blog-prose h3 { font-size: 1.25rem; }
+.blog-prose h4 { font-size: 1.0625rem; }
+
+.blog-prose p { color: var(--ink); }
+
+.blog-prose a {
+  color: var(--signal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.blog-prose strong { color: var(--ink); font-weight: 700; }
+
+.blog-prose ul,
+.blog-prose ol {
+  padding-left: 1.5em;
+}
+
+.blog-prose ul { list-style: disc; }
+.blog-prose ol { list-style: decimal; }
+
+.blog-prose li + li { margin-top: 0.4em; }
+
+.blog-prose blockquote {
+  border-left: 3px solid var(--signal);
+  padding-left: 1em;
+  color: var(--slate);
+  font-style: italic;
+}
+
+.blog-prose hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 2.5em 0;
+}
+
+.blog-prose img {
+  border-radius: 0.75rem;
+  border: 1px solid var(--line);
+}
+
+.blog-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--signal-dim);
+  color: var(--ink);
+  padding: 0.15em 0.4em;
+  border-radius: 0.3em;
+}
+
+.blog-prose pre {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  padding: 1em 1.25em;
+  overflow-x: auto;
+}
+
+.blog-prose pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+.blog-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+
+.blog-prose th,
+.blog-prose td {
+  border: 1px solid var(--line);
+  padding: 0.5em 0.75em;
+  text-align: left;
+}
+
+.blog-prose th {
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--slate);
+}
+
+/* highlight.js token colors, mapped to the design tokens */
+.blog-prose .hljs-comment,
+.blog-prose .hljs-quote { color: var(--slate); font-style: italic; }
+
+.blog-prose .hljs-keyword,
+.blog-prose .hljs-selector-tag,
+.blog-prose .hljs-literal { color: var(--signal); }
+
+.blog-prose .hljs-string,
+.blog-prose .hljs-attr,
+.blog-prose .hljs-template-tag { color: var(--live); }
+
+.blog-prose .hljs-title,
+.blog-prose .hljs-section,
+.blog-prose .hljs-name { color: var(--ink); font-weight: 700; }
+
+.blog-prose .hljs-number,
+.blog-prose .hljs-symbol { color: var(--signal); }
