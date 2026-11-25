@@ -266,9 +266,12 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                 {cs.results.length > 0 ? (
                   <dl className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {cs.results.map((r) => (
-                      <div key={r.label} className="rounded-lg border border-line bg-paper p-3">
-                        <dd className="font-display text-xl font-bold text-ink">{r.value}</dd>
-                        <dt className="font-mono text-[11px] uppercase tracking-wide text-slate">{r.label}</dt>
+                      <div
+                        key={r.label}
+                        className="flex flex-col gap-1.5 rounded-lg border border-line bg-paper p-4 sm:[&:last-child:nth-child(odd)]:col-span-2"
+                      >
+                        <dt className="font-mono text-[11px] uppercase tracking-widest text-signal">{r.label}</dt>
+                        <dd className="text-sm sm:text-base font-medium leading-relaxed text-ink">{r.value}</dd>
                       </div>
                     ))}
                   </dl>

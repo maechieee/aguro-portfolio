@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Download, Expand, FileText } from "lucide-react";
+import { Download, Expand, ExternalLink, FileText } from "lucide-react";
 import { Button } from "./Button";
-import { documents } from "@/data/documents";
+import { Modal } from "./Modal";
+import { documents, type DocumentItem } from "@/data/documents";
 
 interface DocumentationSectionProps {
   /** Map of document id -> whether the PDF exists in /public (resolved on the server). */
@@ -11,7 +13,19 @@ interface DocumentationSectionProps {
 }
 
 export function DocumentationSection({ available }: DocumentationSectionProps) {
+  const [openDoc, setOpenDoc] = useState<DocumentItem | null>(null);
+  // Keep the last document while the modal's exit animation plays.
+  const [lastDoc, setLastDoc] = useState<DocumentItem | null>(null);
+  const viewing = openDoc ?? lastDoc;
+
+  const open = (doc: DocumentItem) => {
+    setLastDoc(doc);
+    setOpenDoc(doc);
+  };
+  const close = () => setOpenDoc(null);
+
   return (
+    <>
     <section id="documentation" className="py-20 bg-paper-raised border-y border-line">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -77,7 +91,7 @@ export function DocumentationSection({ available }: DocumentationSectionProps) {
                   <div className="mt-auto flex flex-wrap gap-3">
                     {ready ? (
                       <>
-                        <Button href={doc.file} size="sm" className="gap-2">
+                        <Button size="sm" className="gap-2" onClick={() => open(doc)}>
                           <Expand className="w-4 h-4" />
                           {doc.openLabel}
                         </Button>
@@ -99,5 +113,56 @@ export function DocumentationSection({ available }: DocumentationSectionProps) {
         </div>
       </div>
     </section>
+
+    <Modal isOpen={openDoc !== null} onClose={close} className="max-w-5xl">
+      {viewing && (
+        <div className="flex flex-col bg-paper-raised text-ink">
+          {/* Close bar */}
+          <div className="flex flex-wrap items-center gap-3 border-b border-line px-4 py-3 sm:px-6 pr-14 sm:pr-16">
+            <div className="min-w-0 flex-1">
+              <p className="font-mono text-[11px] uppercase tracking-widest text-slate">Document</p>
+              <h3 className="font-display text-base sm:text-lg font-bold truncate">{viewing.title}</h3>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button href={viewing.file} download={viewing.downloadName} variant="outline" size="sm" className="gap-2">
+                <Download className="w-4 h-4" />
+                <span className="hidden sm:inline">Download</span>
+              </Button>
+              <a
+                href={viewing.file}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-9 items-center gap-2 rounded-md px-3 text-sm font-medium text-ink hover:bg-signal-dim transition-colors"
+              >
+                <ExternalLink className="w-4 h-4" />
+                <span className="hidden sm:inline">New tab</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Viewer */}
+          <object
+            data={`${viewing.file}#view=FitH`}
+            type="application/pdf"
+            aria-label={viewing.title}
+            className="w-full h-[70vh] sm:h-[75vh] bg-signal-dim"
+          >
+            <div className="h-[40vh] flex flex-col items-center justify-center gap-3 p-6 text-center text-slate">
+              <FileText className="w-10 h-10 opacity-60" strokeWidth={1.25} aria-hidden="true" />
+              <p className="text-sm">Your browser can&apos;t display this PDF here.</p>
+              <a
+                href={viewing.file}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-signal underline underline-offset-4 text-sm"
+              >
+                Open {viewing.title} in a new tab
+              </a>
+            </div>
+          </object>
+        </div>
+      )}
+    </Modal>
+    </>
   );
 }
