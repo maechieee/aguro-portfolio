@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Award, ExternalLink, ChevronDown } from "lucide-react";
-import { certifications } from "@/data/certifications";
+import { certifications, awards } from "@/data/certifications";
 
 // Show this many first; the rest sit behind a "Show all" button.
 const INITIAL_VISIBLE = 6;
@@ -95,6 +95,36 @@ export function CertificationsSection() {
             <p className="font-mono text-xs uppercase tracking-widest text-slate">
               Certifications to be added
             </p>
+          </motion.div>
+        )}
+
+        {/* Awards & leadership: compact rows. Hidden while the list is empty. */}
+        {awards.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mt-16"
+          >
+            <p className="font-mono text-xs text-slate uppercase tracking-widest mb-3">Recognition</p>
+            <h3 className="font-display text-2xl md:text-3xl font-bold text-ink tracking-tight mb-6">
+              Awards &amp; Leadership
+            </h3>
+            <ul className="grid md:grid-cols-2 gap-x-8 rounded-xl border border-line bg-paper-raised px-5">
+              {awards.map((a) => (
+                <li
+                  key={a.id}
+                  className="flex items-baseline justify-between gap-4 py-3.5 border-b border-line last:border-b-0 md:[&:nth-last-child(2):nth-child(odd)]:border-b-0"
+                >
+                  <div className="min-w-0">
+                    <p className="font-semibold text-ink">{a.title}</p>
+                    {a.org && <p className="text-sm text-slate">{a.org}</p>}
+                  </div>
+                  <span className="font-mono text-xs text-slate whitespace-nowrap">{a.date}</span>
+                </li>
+              ))}
+            </ul>
           </motion.div>
         )}
       </div>
